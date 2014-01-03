@@ -21,7 +21,8 @@ import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Deactivate;
 import aQute.bnd.annotation.component.Reference;
 
-import java.util.Properties;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -55,9 +56,9 @@ public class GreeterServiceFactoryManager {
         try {
             lock.readLock().lock();
             if (factory != null) {
-                final Properties props = new Properties();
-                props.setProperty("salutation", "Hello");
-                props.setProperty("name", "Scott");
+                final Dictionary<String, String> props = new Hashtable<>();
+                props.put("salutation", "Hello");
+                props.put("name", "Scott");
                 instance = factory.newInstance(props);
                 greeterService = (GreeterServiceComponentFactory)instance.getInstance();
                 greeterService.startGreeter();
